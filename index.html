@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Brawl</title>
+    <title>Le Combat des Caves</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -13,10 +13,10 @@
 <body>
     <!-- CHARACTER SELECT SCREEN -->
     <div id="screen-select" class="screen active">
-        <h1 class="game-title">ARENA BRAWL</h1>
+        <h1 class="game-title">LE COMBAT DES CAVES</h1>
         <div class="select-header">
             <div class="player-preview p1-preview">
-                <div class="preview-label">YOU</div>
+                <div class="preview-label">TOI</div>
                 <div class="preview-avatar" id="p1-preview-avatar"></div>
                 <div class="preview-name" id="p1-preview-name">???</div>
             </div>
@@ -27,21 +27,21 @@
                 <div class="preview-name" id="p2-preview-name">???</div>
             </div>
         </div>
-        <div class="select-instruction" id="select-instruction">CHOOSE YOUR FIGHTER</div>
+        <div class="select-instruction" id="select-instruction">CHOISIS TON CAVE</div>
         <div class="roster-grid" id="roster-grid"></div>
         <div class="controls-info">
             <div class="controls-box">
-                <div class="controls-title">YOUR CONTROLS</div>
+                <div class="controls-title">TES TOUCHES</div>
                 <div class="controls-keys">
-                    <span>WASD</span> Move
-                    <span>F</span> Punch
-                    <span>G</span> Kick
+                    <span>ZQSD</span> Bouger
+                    <span>F</span> Poing
+                    <span>G</span> Pied
                     <span>H</span> Special
                     <span>ESC</span> Pause
                 </div>
             </div>
         </div>
-        <button id="btn-fight" class="btn-fight hidden">FIGHT!</button>
+        <button id="btn-fight" class="btn-fight hidden">BASTON !</button>
     </div>
 
     <!-- FIGHT SCREEN -->
@@ -89,9 +89,9 @@
     <!-- PAUSE OVERLAY -->
     <div id="screen-pause" class="screen overlay">
         <div class="pause-box">
-            <h2>PAUSED</h2>
-            <button id="btn-resume">RESUME</button>
-            <button id="btn-quit">QUIT TO SELECT</button>
+            <h2>PAUSE</h2>
+            <button id="btn-resume">REPRENDRE</button>
+            <button id="btn-quit">RETOUR</button>
         </div>
     </div>
 
@@ -99,13 +99,13 @@
     <div id="screen-victory" class="screen">
         <canvas id="confetti-canvas"></canvas>
         <div class="victory-content">
-            <div class="winner-label">WINNER!</div>
+            <div class="winner-label">VAINQUEUR !</div>
             <div class="winner-avatar-container">
                 <img class="winner-avatar" id="winner-avatar" src="" alt="">
             </div>
             <div class="winner-name" id="winner-name"></div>
             <div class="match-stats" id="match-stats"></div>
-            <button id="btn-rematch" class="btn-fight">REMATCH</button>
+            <button id="btn-rematch" class="btn-fight">REVANCHE</button>
         </div>
     </div>
 </body>

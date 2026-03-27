@@ -1,5 +1,5 @@
 // ============================================================
-// ARENA BRAWL — 2D Fighting Game
+// LE COMBAT DES CAVES — 2D Fighting Game
 // ============================================================
 
 const FIGHTERS = [
@@ -240,14 +240,14 @@ function updateSelectUI() {
 
     if (state.p2Fighter) {
         p2PreviewAvatar.innerHTML = '<img src="players/' + state.p2Fighter + '.png" alt="' + state.p2Fighter + '">';
-        p2PreviewName.textContent = state.p2Fighter.toUpperCase() + ' (BOT)';
+        p2PreviewName.textContent = state.p2Fighter.toUpperCase() + ' (ORDI)';
     } else {
         p2PreviewAvatar.innerHTML = '';
         p2PreviewName.textContent = '???';
     }
 
     if (state.selectPhase === 1) {
-        instruction.textContent = 'CHOOSE YOUR FIGHTER';
+        instruction.textContent = 'CHOISIS TON CAVE';
         btnFight.classList.add('hidden');
     } else {
         instruction.textContent = '';
@@ -441,7 +441,7 @@ function startCountdown() {
         playSound('beep');
     }, 3000);
     setTimeout(() => {
-        showAnnouncement('FIGHT!', 800);
+        showAnnouncement('BASTON !', 800);
         playSound('beep-high');
         f.phase = 'fighting';
     }, 3900);
@@ -525,9 +525,9 @@ function togglePause() {
 
 function getP1Input() {
     return {
-        left: !!keys['KeyA'],
+        left: !!keys['KeyQ'] || !!keys['KeyA'],
         right: !!keys['KeyD'],
-        jump: !!keys['KeyW'],
+        jump: !!keys['KeyZ'] || !!keys['KeyW'],
         crouch: !!keys['KeyS'],
         punch: !!keys['KeyF'],
         kick: !!keys['KeyG'],
@@ -896,8 +896,8 @@ function updateComboDisplay(fighter) {
     const elId = fighter.player === 1 ? 'combo-p1' : 'combo-p2';
     const el = document.getElementById(elId);
     if (fighter.combo >= 2) {
-        let text = fighter.combo + ' HIT!';
-        if (fighter.combo >= 5) text = fighter.combo + ' HIT!\nBRUTAL!';
+        let text = fighter.combo + ' COUPS !';
+        if (fighter.combo >= 5) text = fighter.combo + ' COUPS !\nBRUTAL !';
         el.textContent = text;
         el.classList.remove('active');
         void el.offsetWidth;
@@ -1212,7 +1212,7 @@ function gameLoop(timestamp) {
             f.p1.isKO = true;
             f.phase = 'ko';
             playSound('ko');
-            showAnnouncement('K.O.!', 2000);
+            showAnnouncement('K.O. !', 2000);
             screenShake(25);
             f.slowmo = 30;
             spawnHitParticles(f.p1.x, f.p1.y - FIGHTER_H / 2, 25, '#ff2d55');
@@ -1221,7 +1221,7 @@ function gameLoop(timestamp) {
             f.p2.isKO = true;
             f.phase = 'ko';
             playSound('ko');
-            showAnnouncement('K.O.!', 2000);
+            showAnnouncement('K.O. !', 2000);
             screenShake(25);
             f.slowmo = 30;
             spawnHitParticles(f.p2.x, f.p2.y - FIGHTER_H / 2, 25, '#00d4ff');
@@ -1232,13 +1232,13 @@ function gameLoop(timestamp) {
         if (f.timer <= 0 && f.phase === 'fighting') {
             f.phase = 'ko';
             if (f.p1.health > f.p2.health) {
-                showAnnouncement('TIME! YOU WIN', 2000);
+                showAnnouncement('TEMPS ! TU GAGNES', 2000);
                 setTimeout(() => endRound(1), 2500);
             } else if (f.p2.health > f.p1.health) {
-                showAnnouncement('TIME! BOT WINS', 2000);
+                showAnnouncement('TEMPS ! LE BOT GAGNE', 2000);
                 setTimeout(() => endRound(2), 2500);
             } else {
-                showAnnouncement('DRAW!', 2000);
+                showAnnouncement('EGALITE !', 2000);
                 setTimeout(() => endRound(0), 2500);
             }
         }
@@ -1353,13 +1353,13 @@ function showVictory(winnerNum) {
 
     const statsEl = document.getElementById('match-stats');
     statsEl.innerHTML =
-        '<div><span class="stat-label">DAMAGE DEALT</span></div>' +
+        '<div><span class="stat-label">DEGATS INFLIGES</span></div>' +
         '<div><span class="stat-p1">' + winner.name.toUpperCase() + ': ' + state.matchStats['p' + winnerNum + 'Damage'] + '</span></div>' +
         '<div><span class="stat-p2">' + loser.name.toUpperCase() + ': ' + state.matchStats['p' + (winnerNum === 1 ? 2 : 1) + 'Damage'] + '</span></div>' +
-        '<div style="margin-top:8px"><span class="stat-label">LONGEST COMBO</span></div>' +
-        '<div><span class="stat-p1">' + winner.name.toUpperCase() + ': ' + state.matchStats['p' + winnerNum + 'MaxCombo'] + ' hits</span></div>' +
-        '<div><span class="stat-p2">' + loser.name.toUpperCase() + ': ' + state.matchStats['p' + (winnerNum === 1 ? 2 : 1) + 'MaxCombo'] + ' hits</span></div>' +
-        '<div style="margin-top:8px"><span class="stat-label">ROUNDS WON</span></div>' +
+        '<div style="margin-top:8px"><span class="stat-label">PLUS LONG COMBO</span></div>' +
+        '<div><span class="stat-p1">' + winner.name.toUpperCase() + ': ' + state.matchStats['p' + winnerNum + 'MaxCombo'] + ' coups</span></div>' +
+        '<div><span class="stat-p2">' + loser.name.toUpperCase() + ': ' + state.matchStats['p' + (winnerNum === 1 ? 2 : 1) + 'MaxCombo'] + ' coups</span></div>' +
+        '<div style="margin-top:8px"><span class="stat-label">ROUNDS GAGNES</span></div>' +
         '<div><span class="stat-p1">' + winner.name.toUpperCase() + ': ' + f['p' + winnerNum + 'Rounds'] + '</span></div>' +
         '<div><span class="stat-p2">' + loser.name.toUpperCase() + ': ' + f['p' + (winnerNum === 1 ? 2 : 1) + 'Rounds'] + '</span></div>';
 
