@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arena Brawl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <!-- CHARACTER SELECT SCREEN -->
+    <div id="screen-select" class="screen active">
+        <h1 class="game-title">ARENA BRAWL</h1>
+        <div class="select-header">
+            <div class="player-preview p1-preview">
+                <div class="preview-label">YOU</div>
+                <div class="preview-avatar" id="p1-preview-avatar"></div>
+                <div class="preview-name" id="p1-preview-name">???</div>
+            </div>
+            <div class="vs-text">VS</div>
+            <div class="player-preview p2-preview">
+                <div class="preview-label">BOT</div>
+                <div class="preview-avatar" id="p2-preview-avatar"></div>
+                <div class="preview-name" id="p2-preview-name">???</div>
+            </div>
+        </div>
+        <div class="select-instruction" id="select-instruction">CHOOSE YOUR FIGHTER</div>
+        <div class="roster-grid" id="roster-grid"></div>
+        <div class="controls-info">
+            <div class="controls-box">
+                <div class="controls-title">YOUR CONTROLS</div>
+                <div class="controls-keys">
+                    <span>WASD</span> Move
+                    <span>F</span> Punch
+                    <span>G</span> Kick
+                    <span>H</span> Special
+                    <span>ESC</span> Pause
+                </div>
+            </div>
+        </div>
+        <button id="btn-fight" class="btn-fight hidden">FIGHT!</button>
+    </div>
+
+    <!-- FIGHT SCREEN -->
+    <div id="screen-fight" class="screen">
+        <div class="fight-hud">
+            <div class="hud-player hud-p1">
+                <img class="hud-avatar" id="hud-p1-avatar" src="" alt="">
+                <div class="hud-name" id="hud-p1-name"></div>
+                <div class="health-bar-container">
+                    <div class="health-bar-ghost" id="p1-health-ghost"></div>
+                    <div class="health-bar" id="p1-health-bar"></div>
+                </div>
+                <div class="round-dots" id="p1-rounds"></div>
+            </div>
+            <div class="hud-center">
+                <div class="timer" id="fight-timer">99</div>
+                <div class="special-cooldowns">
+                    <div class="cooldown-indicator p1-cd" id="p1-cooldown">
+                        <div class="cooldown-fill" id="p1-cooldown-fill"></div>
+                        <span>P1 SP</span>
+                    </div>
+                    <div class="cooldown-indicator p2-cd" id="p2-cooldown">
+                        <div class="cooldown-fill" id="p2-cooldown-fill"></div>
+                        <span>P2 SP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hud-player hud-p2">
+                <div class="round-dots" id="p2-rounds"></div>
+                <div class="health-bar-container">
+                    <div class="health-bar-ghost" id="p2-health-ghost"></div>
+                    <div class="health-bar" id="p2-health-bar"></div>
+                </div>
+                <div class="hud-name" id="hud-p2-name"></div>
+                <img class="hud-avatar" id="hud-p2-avatar" src="" alt="">
+            </div>
+        </div>
+        <canvas id="arena-canvas"></canvas>
+        <div class="announcement" id="announcement"></div>
+        <div class="combo-display" id="combo-p1"></div>
+        <div class="combo-display combo-right" id="combo-p2"></div>
+        <button class="btn-sound" id="btn-sound" title="Toggle Sound">🔇</button>
+    </div>
+
+    <!-- PAUSE OVERLAY -->
+    <div id="screen-pause" class="screen overlay">
+        <div class="pause-box">
+            <h2>PAUSED</h2>
+            <button id="btn-resume">RESUME</button>
+            <button id="btn-quit">QUIT TO SELECT</button>
+        </div>
+    </div>
+
+    <!-- VICTORY SCREEN -->
+    <div id="screen-victory" class="screen">
+        <canvas id="confetti-canvas"></canvas>
+        <div class="victory-content">
+            <div class="winner-label">WINNER!</div>
+            <div class="winner-avatar-container">
+                <img class="winner-avatar" id="winner-avatar" src="" alt="">
+            </div>
+            <div class="winner-name" id="winner-name"></div>
+            <div class="match-stats" id="match-stats"></div>
+            <button id="btn-rematch" class="btn-fight">REMATCH</button>
+        </div>
+    </div>
+</body>
+</html>
