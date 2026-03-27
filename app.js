@@ -523,15 +523,17 @@ function togglePause() {
     }
 }
 
+const touchState = { left: false, right: false, up: false, down: false, punch: false, kick: false, special: false };
+
 function getP1Input() {
     return {
-        left: !!keys['KeyQ'] || !!keys['KeyA'],
-        right: !!keys['KeyD'],
-        jump: !!keys['KeyZ'] || !!keys['KeyW'],
-        crouch: !!keys['KeyS'],
-        punch: !!keys['KeyF'],
-        kick: !!keys['KeyG'],
-        special: !!keys['KeyH']
+        left: !!keys['KeyQ'] || !!keys['KeyA'] || touchState.left,
+        right: !!keys['KeyD'] || touchState.right,
+        jump: !!keys['KeyZ'] || !!keys['KeyW'] || touchState.up,
+        crouch: !!keys['KeyS'] || touchState.down,
+        punch: !!keys['KeyF'] || touchState.punch,
+        kick: !!keys['KeyG'] || touchState.kick,
+        special: !!keys['KeyH'] || touchState.special
     };
 }
 
@@ -1197,6 +1199,10 @@ function gameLoop(timestamp) {
     // Update phase
     if (f.phase === 'fighting') {
         const p1Input = getP1Input();
+        // Clear one-shot touch attacks after reading
+        touchState.punch = false;
+        touchState.kick = false;
+        touchState.special = false;
         const botInput = getBotInput(f.p2, f.p1);
 
         updateFighter(f.p1, p1Input, f.p2);
@@ -1534,6 +1540,28 @@ function init() {
         state.fight = null;
         resetSelect();
         showScreen('select');
+    });
+
+    // Touch controls
+    document.querySelectorAll('.dpad-btn').forEach(function(btn) {
+        var dir = btn.dataset.dir;
+        btn.addEventListener('touchstart', function(e) { e.preventDefault(); touchState[dir] = true; btn.classList.add('pressed'); }, { passive: false });
+        btn.addEventListener('touchend', function(e) { e.preventDefault(); touchState[dir] = false; btn.classList.remove('pressed'); }, { passive: false });
+        btn.addEventListener('touchcancel', function() { touchState[dir] = false; btn.classList.remove('pressed'); });
+    });
+    document.querySelectorAll('.attack-btn').forEach(function(btn) {
+        var attack = btn.dataset.attack;
+        btn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            touchState[attack] = true;
+            btn.classList.add('pressed');
+        }, { passive: false });
+        btn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            touchState[attack] = false;
+            btn.classList.remove('pressed');
+        }, { passive: false });
+        btn.addEventListener('touchcancel', function() { touchState[attack] = false; btn.classList.remove('pressed'); });
     });
 
     // Resize
